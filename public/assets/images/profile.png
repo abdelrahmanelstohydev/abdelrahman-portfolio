@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1B293B" />
+      <stop offset="50%" stop-color="#2F4A63" />
+      <stop offset="100%" stop-color="#131B2B" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5B91A3" />
+      <stop offset="100%" stop-color="#89C4D8" />
+    </linearGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#5B91A3" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#131B2B" stop-opacity="0" />
+    </radialGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Outer circle background -->
+  <circle cx="250" cy="250" r="240" fill="url(#bgGrad)" stroke="url(#accentGrad)" stroke-width="4" />
+  <circle cx="250" cy="250" r="220" fill="url(#glowGrad)" />
+
+  <!-- Code brackets in background -->
+  <text x="80" y="200" font-family="monospace" font-size="48" fill="#5B91A3" opacity="0.3">&lt;/&gt;</text>
+  <text x="360" y="320" font-family="monospace" font-size="40" fill="#5B91A3" opacity="0.25">{ ; }</text>
+
+  <!-- Modern Avatar Illustration -->
+  <g transform="translate(0, 10)">
+    <!-- Body / Shoulders -->
+    <path d="M 140 440 C 140 340, 200 320, 250 320 C 300 320, 360 340, 360 440 Z" fill="#203449" stroke="#5B91A3" stroke-width="2" />
+    <!-- Collar / Hoodie V-shape -->
+    <polygon points="250,370 230,320 270,320" fill="#131B2B" />
+    
+    <!-- Neck -->
+    <rect x="230" y="270" width="40" height="60" rx="8" fill="#E2BA99" />
+    
+    <!-- Head -->
+    <ellipse cx="250" cy="220" rx="65" ry="75" fill="#F0C7A6" />
+    
+    <!-- Modern styled hair -->
+    <path d="M 180 210 C 180 140, 210 130, 250 130 C 290 130, 320 145, 320 210 C 305 180, 280 170, 250 170 C 220 170, 195 185, 180 210 Z" fill="#1C202A" />
+    
+    <!-- Glasses -->
+    <rect x="200" y="200" width="40" height="28" rx="8" fill="none" stroke="#5B91A3" stroke-width="3" />
+    <rect x="260" y="200" width="40" height="28" rx="8" fill="none" stroke="#5B91A3" stroke-width="3" />
+    <line x1="240" y1="214" x2="260" y2="214" stroke="#5B91A3" stroke-width="3" />
+
+    <!-- Eyes inside glasses -->
+    <circle cx="220" cy="214" r="4" fill="#1C202A" />
+    <circle cx="280" cy="214" r="4" fill="#1C202A" />
+
+    <!-- Smile -->
+    <path d="M 235 255 Q 250 268 265 255" fill="none" stroke="#8A4A36" stroke-width="3" stroke-linecap="round" />
+  </g>
+
+  <!-- Monogram Badge -->
+  <g transform="translate(370, 370)">
+    <circle cx="25" cy="25" r="32" fill="#131B2B" stroke="#5B91A3" stroke-width="3" filter="url(#glow)" />
+    <text x="25" y="34" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="20" fill="#F4F0E2" text-anchor="middle">AE</text>
+  </g>
+</svg>
