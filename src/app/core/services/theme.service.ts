@@ -1,4 +1,4 @@
-import { Injectable, signal, effect, PLATFORM_ID, inject } from '@angular/core';
+import { Injectable, signal, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 export type ThemeMode = 'dark' | 'light';
@@ -16,13 +16,7 @@ export class ThemeService {
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
-      const savedTheme = localStorage.getItem(this.STORAGE_KEY) as ThemeMode | null;
-      if (savedTheme === 'dark' || savedTheme === 'light') {
-        this.setTheme(savedTheme);
-      } else {
-        // Dark theme is default as specified
-        this.setTheme('dark');
-      }
+      this.applyTheme(this.readTheme());
     }
   }
 
@@ -32,21 +26,33 @@ export class ThemeService {
   }
 
   setTheme(theme: ThemeMode): void {
+    this.applyTheme(theme);
+
+    if (isPlatformBrowser(this.platformId)) {
+      try {
+        localStorage.setItem(this.STORAGE_KEY, theme);
+      } catch {
+        return;
+      }
+    }
+  }
+
+  private readTheme(): ThemeMode {
+    try {
+      return localStorage.getItem(this.STORAGE_KEY) === 'light' ? 'light' : 'dark';
+    } catch {
+      return 'dark';
+    }
+  }
+
+  private applyTheme(theme: ThemeMode): void {
     this.currentTheme.set(theme);
     this.isDark.set(theme === 'dark');
 
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem(this.STORAGE_KEY, theme);
-      const body = document.body;
-      if (theme === 'dark') {
-        body.classList.remove('theme-light');
-        body.classList.add('theme-dark');
-        document.documentElement.style.colorScheme = 'dark';
-      } else {
-        body.classList.remove('theme-dark');
-        body.classList.add('theme-light');
-        document.documentElement.style.colorScheme = 'light';
-      }
+      document.body.classList.toggle('theme-dark', theme === 'dark');
+      document.body.classList.toggle('theme-light', theme === 'light');
+      document.documentElement.style.colorScheme = theme;
     }
   }
 }

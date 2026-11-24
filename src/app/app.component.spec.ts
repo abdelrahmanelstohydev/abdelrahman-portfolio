@@ -43,6 +43,25 @@ describe('Abdelrahman Elstohy Portfolio App', () => {
     expect(themeService.currentTheme()).toBe('dark');
   });
 
+  it('should start the app and allow theme changes when browser storage is blocked', () => {
+    const storage = vi.spyOn(window, 'localStorage', 'get').mockImplementation(() => {
+      throw new DOMException('Storage blocked', 'SecurityError');
+    });
+
+    try {
+      const fixture = TestBed.createComponent(AppComponent);
+      const themeService = fixture.componentInstance.themeService;
+      expect(themeService.currentTheme()).toBe('dark');
+      expect(document.body.classList.contains('theme-dark')).toBe(true);
+
+      themeService.toggleTheme();
+      expect(themeService.currentTheme()).toBe('light');
+      expect(document.body.classList.contains('theme-light')).toBe(true);
+    } finally {
+      storage.mockRestore();
+    }
+  });
+
   it('should validate contact form fields accurately', () => {
     const fixture = TestBed.createComponent(ContactComponent);
     const component = fixture.componentInstance;
